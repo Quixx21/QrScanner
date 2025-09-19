@@ -9,8 +9,13 @@ test("upload ticket and get result", async ({ page }) => {
   await page.goto("/");
 
   const fileInput = page.locator('input[type="file"]');
-  await fileInput.setInputFiles("tests/fixtures/ticket2.jpg");
-await page.waitForResponse(resp => resp.url().includes("/decode") && resp.status() === 200);
+  const [response] = await Promise.all([
+  page.waitForResponse(resp =>
+    resp.url().includes("/decode") && resp.status() === 200
+  ),
+  fileInput.setInputFiles("tests/fixtures/ticket2.jpg"),
+]);
+
 await expect(page.locator("h2")).toBeVisible();
 });
 
