@@ -33,6 +33,10 @@ jobs:
       - name: Install frontend deps
         working-directory: qrscanner-web
         run: npm install
+      - name: Install Playwright browsers
+        working-directory: qrscanner-web
+        run: npx playwright install --with-deps
+
       - name: Run Playwright tests
         working-directory: qrscanner-web
         run: npx playwright test
