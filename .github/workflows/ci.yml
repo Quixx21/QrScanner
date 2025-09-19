@@ -30,16 +30,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
       - name: Install frontend deps
         working-directory: qrscanner-web
         run: npm install
+
       - name: Install Playwright browsers
         working-directory: qrscanner-web
         run: npx playwright install --with-deps
+      - name: Build frontend
+        working-directory: qrscanner-web
+        run: npm run build
+
+      - name: Start frontend
+        working-directory: qrscanner-web
+        run: nohup npm run start &
+
+      - name: Wait for frontend
+        run: npx wait-on http://localhost:3000
 
       - name: Run Playwright tests
         working-directory: qrscanner-web
         run: npx playwright test
+
       - name: Run Newman tests
         run: |
           npm install -g newman
