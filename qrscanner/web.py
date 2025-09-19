@@ -16,6 +16,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 @app.post("/decode")
 async def decode_qr(file: UploadFile = File(...)):
     data = await file.read()
@@ -27,6 +29,8 @@ async def decode_qr(file: UploadFile = File(...)):
         img = cv2.cvtColor(img, cv2.COLOR_RGBA2BGR)
     res = decode_frame(img)
     return res
+
+
 @app.get("/health")
 async def health():
     return {"status": "ok"}

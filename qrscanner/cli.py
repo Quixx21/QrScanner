@@ -3,10 +3,13 @@ import json
 from .core import decode_file
 from .camera import camera_loop
 
+
 def main():
     parser = argparse.ArgumentParser(description="QR Scanner CLI")
     parser.add_argument("files", nargs="*", help="Image files to decode")
-    parser.add_argument("--camera", action="store_true", help="Use camera instead of files")
+    parser.add_argument(
+        "--camera", action="store_true", help="Use camera instead of files"
+    )
     parser.add_argument("--output", default="scanned.json", help="Output JSON file")
     parser.add_argument("--device", type=int, default=0, help="Camera device index")
     args = parser.parse_args()

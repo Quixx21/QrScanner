@@ -2,7 +2,7 @@ import cv2
 import json
 import time
 import os
-from .core import decode_frame, raw_to_hex_preview
+from .core import decode_frame
 
 
 def camera_loop(device=0, output_file="scanned.json"):
@@ -12,7 +12,6 @@ def camera_loop(device=0, output_file="scanned.json"):
         return
 
     print("Camera opened. Press 'q' to quit. Press 'r' to rescan after detection.")
-    last_report = None
     scanning_enabled = True  # true = scanning for qr, false paused
     if os.path.exists(output_file):
         try:
@@ -40,16 +39,30 @@ def camera_loop(device=0, output_file="scanned.json"):
                 info = res["info"]
 
                 # if qr was found
-                cv2.putText(preview, "FOUND!", (10, 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 3)
+                cv2.putText(
+                    preview,
+                    "FOUND!",
+                    (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1.0,
+                    (0, 255, 0),
+                    3,
+                )
 
                 # parsed ticket
                 parsed = info.get("parsed", {})
                 y = 60
                 for k in ("from", "to", "train", "wagon", "seat", "name"):
                     if k in parsed:
-                        cv2.putText(preview, f"{k}: {parsed[k]}", (10, y),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+                        cv2.putText(
+                            preview,
+                            f"{k}: {parsed[k]}",
+                            (10, y),
+                            cv2.FONT_HERSHEY_SIMPLEX,
+                            0.6,
+                            (255, 255, 255),
+                            1,
+                        )
                         y += 24
 
                 # save to json
@@ -66,22 +79,34 @@ def camera_loop(device=0, output_file="scanned.json"):
                 print("Detected and saved")
                 print(json.dumps(result, indent=2, ensure_ascii=False))
                 scanning_enabled = False
-                last_report = info
             else:
-                cv2.putText(preview, "No barcode", (10, 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                cv2.putText(
+                    preview,
+                    "No barcode",
+                    (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.8,
+                    (0, 0, 255),
+                    2,
+                )
         else:
-            cv2.putText(preview, "Scan paused. Press 'r' to rescan", (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
+            cv2.putText(
+                preview,
+                "Scan paused. Press 'r' to rescan",
+                (10, 30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.8,
+                (255, 255, 0),
+                2,
+            )
         cv2.imshow("Ticket scanner", preview)
         key = cv2.waitKey(1) & 0xFF
 
-        if key == ord('q'):
+        if key == ord("q"):
             break
-        elif key == ord('r'):
+        elif key == ord("r"):
             print("Rescan enabled")
             scanning_enabled = True
-            last_report = None
 
     cap.release()
     cv2.destroyAllWindows()
