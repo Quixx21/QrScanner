@@ -16,12 +16,15 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Cache Poetry deps
+      - name: Cache Poetry and pip deps
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pypoetry
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
           key: poetry-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: poetry-${{ runner.os }}-
+          restore-keys: |
+            poetry-${{ runner.os }}-
 
       - name: Install Poetry
         run: pip install poetry
