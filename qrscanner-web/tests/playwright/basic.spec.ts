@@ -6,12 +6,8 @@ test("homepage loads and shows title", async ({ page }) => {
 });
 
 test("upload ticket and get result", async ({ page }) => {
-  // логировать все ответы в консоль
-  page.on("response", resp => {
-    console.log(">>", resp.url(), resp.status());
-  });
-
-  const fileInput = page.locator('input[type="file"]');
+    await page.goto("/");
+    const fileInput = page.locator('input[type="file"]');
 
   const [response] = await Promise.all([
     page.waitForResponse(resp =>
