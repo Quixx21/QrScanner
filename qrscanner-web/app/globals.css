@@ -1,0 +1,62 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+.sphere {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  transition: transform 0.2s ease-out;
+}
+
+/* Сфера 1 */
+.sphere-1 {
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle at center, #a855f7, #ec4899, transparent);
+  top: -10%;
+  left: -10%;
+  animation: float 15s ease-in-out infinite;
+}
+
+/* Сфера 2 */
+.sphere-2 {
+  width: 35rem;
+  height: 35rem;
+  background: radial-gradient(circle at center, #3b82f6, #06b6d4, transparent);
+  bottom: -15%;
+  right: -10%;
+  animation: float-slow 25s ease-in-out infinite;
+}
+
+/* Сфера 3 */
+.sphere-3 {
+  width: 30rem;
+  height: 30rem;
+  background: radial-gradient(circle at center, #22c55e, #84cc16, transparent);
+  top: 30%;
+  right: 20%;
+  animation: float-fast 12s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -40px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, 20px); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(40px, -30px); }
+}
+
+/* Параллакс на движение мышки */
+body:hover .sphere {
+  transition: none;
+}

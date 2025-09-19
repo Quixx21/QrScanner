@@ -1,0 +1,32 @@
+{
+  "info": {
+    "name": "QRScanner API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Decode QR (file)",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/home/michael/PyProjects/QrScanner/qrscanner/ticket2.jpg"
+            }
+          ]
+        },
+        "url": "{{baseUrl}}/decode"
+      }
+    }
+  ]
+}
