@@ -1,0 +1,14 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY qrscanner-web/package.json qrscanner-web/package-lock.json ./
+RUN npm install --legacy-peer-deps
+
+COPY qrscanner-web/ .
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]

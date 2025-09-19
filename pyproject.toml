@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "qrscanner"
+version = "0.1.0"
+description = "QR ticket scanner (ZSSK + generic QR) with camera, CLI and web API"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "qrscanner" }]
+
+[tool.poetry.scripts]
+qrscanner = "qrscanner.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+opencv-python = "^4.10.0.0"
+zxing-cpp = "^2.2.0"
+fastapi = "^0.115.0"
+uvicorn = "^0.30.0"
+python-multipart = "^0.0.9"
+pytest = "^8.4.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+requests = "^2.32.5"
+black = "^25.9.0"
+flake8 = "^7.3.0"
+pre-commit = "^4.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

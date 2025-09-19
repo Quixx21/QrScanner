@@ -1,0 +1,50 @@
+[
+  {
+    "timestamp": "2025-09-18 22:40:56",
+    "format": "BarcodeFormat.Aztec",
+    "raw_length": 320,
+    "parsed": {
+      "from": "Bratislava hl.",
+      "to": "Košice",
+      "train": "631",
+      "wagon": "7",
+      "seat": "85",
+      "name": "Bratislava hl.",
+      "type": "Jednosmerná (one way)",
+      "discount": "100% zľava (student)",
+      "distance_km": "443"
+    }
+  },
+  {
+    "timestamp": "2025-09-19 15:24:09",
+    "format": "BarcodeFormat.Aztec",
+    "raw_length": 320,
+    "parsed": {
+      "from": "Bratislava hl.",
+      "to": "Košice",
+      "train": "631",
+      "wagon": "7",
+      "seat": "85",
+      "name": "Bratislava hl.",
+      "type": "Jednosmerná (one way)",
+      "discount": "100% zľava (student)",
+      "distance_km": "443"
+    }
+  },
+  {
+    "timestamp": "2025-09-19 15:31:52",
+    "format": "BarcodeFormat.Aztec",
+    "raw_length": 320,
+    "parsed": {
+      "from": "Bratislava hl.",
+      "to": "Košice",
+      "train": "631",
+      "wagon": "7",
+      "seat": "85",
+      "name": "Bratislava hl.",
+      "type": "Jednosmerná (one way)",
+      "discount": "100% zľava (student)",
+      "distance_km": "443"
+    }
+  }
+]
