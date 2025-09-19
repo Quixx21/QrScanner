@@ -22,6 +22,7 @@ jobs:
           path: |
             ~/.cache/pypoetry
             ~/.cache/pip
+            ~/.cache/pypoetry/virtualenvs
           key: poetry-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
             poetry-${{ runner.os }}-
