@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build backend Docker image
-        run: docker build -t quixx21/qrscanner-backend:latest -f Dockerfile.backend
+        run: docker build -t quixx21/qrscanner-backend:latest -f Dockerfile.backend .
       - name: Build frontend Docker image
         run: docker build -t quixx21/qrscanner-frontend:latest -f Dockerfile.frontend ./qrscanner-web
       - name: Log in to Docker Hub
