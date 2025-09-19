@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd="pg_isready -U test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Python deps
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Run linters
+        run: |
+          poetry run black --check .
+          poetry run flake8 .
+
+      - name: Run backend tests
+        run: poetry run pytest -v
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install frontend deps
+        working-directory: qrscanner-web
+        run: npm ci
+
+      - name: Run frontend lint
+        working-directory: qrscanner-web
+        run: npm run lint
+
+      - name: Run Playwright tests
+        working-directory: qrscanner-web
+        run: npx playwright test
+
+      - name: Run Newman tests
+        run: |
+          npm install -g newman
+          newman run postman/qrscanner.postman_collection.json -e postman/qrscanner.postman_environment.json
+
+      - name: Build backend Docker image
+        run: docker build -t quixx21/qrscanner-backend:latest -f backend.Dockerfile .
+
+      - name: Build frontend Docker image
+        run: docker build -t quixx21/qrscanner-frontend:latest -f frontend.Dockerfile ./qrscanner-web
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+
+      - name: Push images
+        run: |
+          docker push myuser/qrscanner-backend:latest
+          docker push myuser/qrscanner-frontend:latest
