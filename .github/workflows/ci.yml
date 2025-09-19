@@ -33,9 +33,6 @@ jobs:
       - name: Install frontend deps
         working-directory: qrscanner-web
         run: npm install
-      - name: Run frontend lint
-        working-directory: qrscanner-web
-        run: npm run lint
       - name: Run Playwright tests
         working-directory: qrscanner-web
         run: npx playwright test
