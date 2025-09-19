@@ -33,7 +33,11 @@ jobs:
         run: poetry run black --check .
 
       - name: Start backend server
-        run: nohup poetry run uvicorn qrscanner.web:app --host 0.0.0.0 --port 8000 &
+        run: | 
+          poetry run uvicorn qrscanner.web:app --host 0.0.0.0 --port 8000 &
+          sleep 10
+          curl -v http://localhost:8000 || true
+          
 
       - name: Wait for backend
         run: npx wait-on http://localhost:8000
