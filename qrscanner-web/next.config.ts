@@ -1,10 +1,21 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/decode",
+        destination: "http://localhost:8000/decode",
+      },
+      {
+        source: "/health",
+        destination: "http://localhost:8000/health",
+      },
+    ];
+  },
 };
 
-module.exports = nextConfig;
 export default nextConfig;
