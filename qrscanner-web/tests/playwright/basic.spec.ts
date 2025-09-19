@@ -6,17 +6,23 @@ test("homepage loads and shows title", async ({ page }) => {
 });
 
 test("upload ticket and get result", async ({ page }) => {
-  await page.goto("/");
+  // логировать все ответы в консоль
+  page.on("response", resp => {
+    console.log(">>", resp.url(), resp.status());
+  });
 
   const fileInput = page.locator('input[type="file"]');
-  const [response] = await Promise.all([
-  page.waitForResponse(resp =>
-    resp.url().includes("/decode") && resp.status() === 200
-  ),
-  fileInput.setInputFiles("tests/fixtures/ticket2.jpg"),
-]);
 
-await expect(page.locator("h2")).toBeVisible();
+  const [response] = await Promise.all([
+    page.waitForResponse(resp =>
+      resp.url().includes("/decode") && resp.status() === 200
+    ),
+    fileInput.setInputFiles("tests/fixtures/ticket2.jpg"),
+  ]);
+
+  console.log("Got decode response:", response.url(), response.status());
+
+  await expect(page.locator("h2")).toBeVisible();
 });
 
 test("camera UI opens", async ({ page }) => {
