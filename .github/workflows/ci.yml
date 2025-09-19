@@ -93,7 +93,7 @@ jobs:
       - name: Run Newman tests
         run: |
           npm install -g newman
-          newman run qrscanner-web/postman/qrscanner.postman_collection.json -e qrscanner-web/postman/qrscanner.postman_environment.json
+          newman run qrscanner-web/tests/postman/qrscanner.postman_collection.json -e qrscanner-web/tests/postman/qrscanner.postman_environment.json
 
   docker:
     runs-on: ubuntu-latest
