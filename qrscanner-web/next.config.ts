@@ -8,11 +8,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/decode",
-        destination: "http://localhost:8000/decode",
+        destination: "http://qrscanner-backend:8000/decode"
       },
       {
         source: "/health",
-        destination: "http://localhost:8000/health",
+        destination: "http://qrscanner-backend:8000/health",
       },
     ];
   },
